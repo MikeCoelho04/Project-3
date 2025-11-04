@@ -1,0 +1,121 @@
+/* GENERAL STYLES */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: beige;
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* MESSAGES STYLES (ERROR AND ACCEPT */
+
+.messages-container {
+  position: fixed;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.error-message, .accept-message {
+  position: fixed;
+  top: 100vh;
+  z-index: 999;
+}
+
+.error-message {
+  background: rgba(212, 70, 70, 0.6);
+  backdrop-filter: blur(4px);
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.accept-message {
+  background: rgba(66, 255, 107, 0.6);
+  backdrop-filter: blur(4px);
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* MAIN CONTENT STYLES */
+
+.global-container {
+  width: 50%;
+  margin: 10px auto;
+}
+
+.global-container h1 {
+  text-align: center;
+}
+
+/* PASSWORD INPUT */
+
+form input{
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+/* RULE CONTAINER */
+
+.rule-container {
+  display: none;
+  box-sizing: border-box;
+  border: 1px solid red;
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.rule-container > *{
+  text-align: left;
+  margin: 0;
+}
+
+.rule-container-title {
+  background-color: rgb(255, 199, 199);
+  padding: 5px 10px;
+  border-radius: 10px 10px 0 0;
+}
+
+.rule-container :last-child {
+  background-color: rgb(255, 236 , 236);
+  padding: 10px 10px;
+  border-radius: 0 0 10px 10px;
+}
+
+/* MEDIA QUERIES */
+
+  /* TABLETS */
+
+@media screen and (max-width: 1025px) {
+
+  .global-container {
+    width: 75%;
+  }
+
+}
+
+  /* PHONES */
+
+@media screen and (max-width: 430px) {
+  * {
+    font-size: 12px;
+  }
+
+  .global-container h1 {
+    font-size: 16px;
+  }
+}
