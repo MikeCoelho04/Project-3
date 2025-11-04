@@ -20,29 +20,29 @@
 
       let ruleCounter
 
-      let rule1Check
+      let rule1Check = false
 
-      let rule2Check
+      let rule2Check = false
 
-      let rule3Check
+      let rule3Check = false
 
-      let rule4Check
+      let rule4Check = false
 
-      let rule5Check
+      let rule5Check = false
 
-      let rule6Check
+      let rule6Check = false
 
-      let rule7Check
+      let rule7Check = false
 
-      let rule8Check
+      let rule8Check = false
 
-      let rule9Check
+      let rule9Check = false
 
-      let rule10Check
+      let rule10Check = false
 
-      let rule11Check
+      let rule11Check = false
 
-      let rule12Check
+      let rule12Check = false
       
       // Declarations for the check verification process
 
@@ -60,8 +60,6 @@
         {rule: () => rule11Check, index: 0},
         {rule: () => rule12Check, index: -1}
       ]
-
-      test
 
       let numberTotal = 0
 
