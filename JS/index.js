@@ -18,7 +18,7 @@
 
       // Declarations for rules checks
 
-      let ruleCounter
+      let unlockedUntil = -1;
 
       let rule1Check = false
 
@@ -94,39 +94,36 @@
 
       }
 
-      // Unhides the next rule only if all the previous rules are true
+      // Shows the rules
 
-      function unHidesRule (variable) {
+      function refreshRules() {
 
-        let lastVariable = -1
+        // Looks for the first false rule
 
-        for(let i = 0; i < rules.length; i++) {
-
-          if(rules[i].rule()) {
-
-            lastVariable = i
-
-          } else {
-            break
-          }
-        }
-
-        const allTrue = rules
-
-          .slice(0, variable + 1)
-          .every(ruleObj => ruleObj.rule())
-
-        if(allTrue) {
-
-          const nextVariable = lastVariable + 1
-
-          if(nextVariable < rules.length) {
-
-            el[rules[nextVariable].index].style.display = 'block'
-          }            
-
-        }
+        const firstFalse = rules.findIndex(r => !r.rule());
         
+        // Calculates the next rule to show
+
+        let nextToReveal  
+        
+        if(firstFalse === -1) {
+          
+          nextToReveal = rules.length - 1
+         } else {
+          
+          nextToReveal = firstFalse
+         }
+
+        // Avoid a rule not being shown when it is true but it’s not yet its turn.
+
+        if (nextToReveal > unlockedUntil) unlockedUntil = nextToReveal;
+
+        // Shows the rules
+
+        for (let i = 0; i <= unlockedUntil; i++) {
+
+          el[rules[i].index].style.display = 'block';
+        }
       }
 
       // Rules
@@ -146,8 +143,6 @@
           rule1Check = true
 
           changeColor(11, rule1Check)
-
-          unHidesRule(0)
         } 
 
         // 2º Rule
@@ -158,7 +153,6 @@
 
           changeColor(10, rule2Check)
 
-          unHidesRule(1)
         } else {
 
           changeColor(10, rule2Check)
@@ -172,7 +166,6 @@
 
           changeColor(9, rule3Check)
 
-          unHidesRule(2)
         } else {
 
           changeColor(9, rule3Check)
@@ -186,7 +179,6 @@
 
           changeColor(8, rule4Check)
 
-          unHidesRule(3)
         } else {
 
           changeColor(8, rule4Check)
@@ -207,7 +199,6 @@
 
           changeColor(7, number25)
 
-          unHidesRule(4)
         } else if(numberTotal < 25 || numberTotal > 25) {
 
           number25 = false
@@ -220,7 +211,7 @@
 
         // 6º Rule
 
-        const months = ['january', 'march', 'april', 'may', 'june', 'july', 'august', 'october', 'november', 'december']
+        const months = ['january', 'march', 'april', 'may', 'june', 'july', 'august', 'october', 'november', 'december', 'January', 'March', 'April', 'May', 'June', 'July', 'August', 'October', 'November', 'December', 'JANUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'OCTOBER', 'NOVEMBER', 'DECEMBER']
 
         // The first if statement makes the word ‘February’ unusable, and displays an alert message if it is used
 
@@ -241,7 +232,6 @@
               
               changeColor(6, rule6Check)
 
-              unHidesRule(5)
             } else {
 
               changeColor(6, rule6Check)
@@ -261,7 +251,6 @@
 
             changeColor(5, rule7Check)
 
-            unHidesRule(6)
           } else {
 
             changeColor(5, rule7Check)
@@ -279,8 +268,6 @@
             rule8Check = true
 
             changeColor(4, rule8Check)
-
-            unHidesRule(7)
 
           } else {
 
@@ -338,8 +325,6 @@
 
             changeColor(3, rule9Check)
 
-            unHidesRule(8)
-
             // 12º Rule Checker 1º Part
 
             totalAtomicValue = totalAtomicValue + symbolsWith2Letters[c].number
@@ -362,7 +347,6 @@
 
             changeColor(2, rule10Check)
 
-            unHidesRule(9)
           } else {
 
             changeColor(2, rule10Check)
@@ -376,8 +360,6 @@
           rule11Check = true
 
           changeColor(1, rule11Check)
-
-          unHidesRule(10)
 
         } else {
 
@@ -398,30 +380,25 @@
 
       }
 
-      // To run tests (e.g., to check if all rules evaluate to true
-      // Use this to check whether a rule is true before it is supposed to)...
-
-      // console.log(rule1Check)
-      // console.log(rule2Check)
-      // console.log(rule3Check)
-      // console.log(rule4Check)
-      // console.log(rule5Check)
-      // console.log(rule6Check)
-      // console.log(rule7Check)
-      // console.log(rule8Check)
-      // console.log(rule9Check)
-      // console.log(rule10Check)
-      // console.log(rule11Check)
-      // console.log(rule12Check)
-            
-
-    // Checks if all rules are being followed; if so, displays the accept message.
+      // Checks if all rules are being followed; if so, displays the accept message.
 
       if(rule1Check && rule2Check && rule3Check && rule4Check && rule5Check && rule6Check && rule7Check && rule8Check && rule9Check && rule10Check && rule11Check && rule12Check) {
         
         let acceptMessage = document.getElementsByClassName('accept-message')
         acceptMessage[0].style.top = '0'
       }
+
+      refreshRules()
+
+      // If the input becomes empty, it clears all the rules
+
+      if (value.length === 0) {
+        unlockedUntil = -1;
+        for (let i = 0; i < rules.length; i++) {
+          el[rules[i].index].style.display = 'none';
+        }
+      }
+
     })
 
     // Function to close, on click, either the accept message or the February alert message.
