@@ -47,18 +47,18 @@
       // Declarations for the check verification process
 
       const rules = [ 
-        {rule: () => rule1Check, index: 10},
-        {rule: () => rule2Check, index: 9},
-        {rule: () => rule3Check, index: 8},
-        {rule: () => rule4Check, index: 7},
-        {rule: () => rule5Check, index: 6},
-        {rule: () => rule6Check, index: 5},
-        {rule: () => rule7Check, index: 4},
-        {rule: () => rule8Check, index: 3},
-        {rule: () => rule9Check, index: 2},
-        {rule: () => rule10Check, index: 1},
-        {rule: () => rule11Check, index: 0},
-        {rule: () => rule12Check, index: -1}
+        {rule: () => rule1Check, index: 11},
+        {rule: () => rule2Check, index: 10},
+        {rule: () => rule3Check, index: 9},
+        {rule: () => rule4Check, index: 8},
+        {rule: () => rule5Check, index: 7},
+        {rule: () => rule6Check, index: 6},
+        {rule: () => rule7Check, index: 5},
+        {rule: () => rule8Check, index: 4},
+        {rule: () => rule9Check, index: 3},
+        {rule: () => rule10Check, index: 2},
+        {rule: () => rule11Check, index: 1},
+        {rule: () => rule12Check, index: 0}
       ]
 
       let numberTotal = 0
@@ -98,11 +98,14 @@
 
       function unHidesRule (variable) {
 
-        let lastVariable
+        let lastVariable = -1
 
         for(let i = 0; i < rules.length; i++) {
+
           if(rules[i].rule()) {
+
             lastVariable = i
+
           } else {
             break
           }
@@ -110,12 +113,17 @@
 
         const allTrue = rules
 
-          .slice(0, variable)
+          .slice(0, variable + 1)
           .every(ruleObj => ruleObj.rule())
 
         if(allTrue) {
-          el[rules[lastVariable].index].style.display = 'block'
-        } else {
+
+          const nextVariable = lastVariable + 1
+
+          if(nextVariable < rules.length) {
+
+            el[rules[nextVariable].index].style.display = 'block'
+          }            
 
         }
         
@@ -172,7 +180,7 @@
 
         // 4º Rule
 
-        if(value[i] >= ' ' && value[i] <= '/' || value[i] >= ':' && value[i] <= '@') {
+        if( (value[i] >= ' ' && value[i] <= '/') || (value[i] >= ':' && value[i] <= '@')) {
 
           rule4Check = true
 
@@ -266,7 +274,7 @@
 
         for(let z = 0; z < romanNumber35.length; z++) {
 
-          if(value.includes(romanNumber35[0]) || value.includes(romanNumber35[1]) && value.includes(romanNumber35[2]) ) {
+          if(value.includes(romanNumber35[0]) || (value.includes(romanNumber35[1]) && value.includes(romanNumber35[2])) ) {
 
             rule8Check = true
 
