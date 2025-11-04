@@ -61,6 +61,8 @@
         {rule: () => rule12Check, index: -1}
       ]
 
+      test
+
       let numberTotal = 0
 
       let number25
